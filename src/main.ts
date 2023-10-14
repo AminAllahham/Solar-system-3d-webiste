@@ -98,8 +98,6 @@ for (let i = 0; i < 10000; i++) {
   scene.add(starMesh);
 }
 
-
-
 for (const planet of sortedPlanetsWithSun) {
   const planetGeometry = new THREE.SphereGeometry(planet.size, 24, 24);
   const planetMaterial = new THREE.MeshStandardMaterial({
@@ -112,8 +110,8 @@ for (const planet of sortedPlanetsWithSun) {
 
 const aLight = new THREE.AmbientLight(0xffffff, 0.05);
 scene.add(aLight);
-const light = new THREE.PointLight(0xffffff, 100);
-light.position.set(0, 7, 7);
+const light = new THREE.PointLight(0xffffff, 1000);
+light.position.set(0, 0, 0);
 scene.add(light);
 
 const camera = new THREE.PerspectiveCamera(
@@ -131,7 +129,6 @@ renderer.setSize(sizes.width, sizes.height);
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.enableZoom = false;
 
 window.addEventListener("resize", () => {
   sizes.width = window.innerWidth;
