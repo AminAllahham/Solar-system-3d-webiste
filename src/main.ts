@@ -1,11 +1,85 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import earthTexture from "./2k_earth_daymap.jpg";
+import sunTexture from "./images/Sun.webp";
+import earthTexture from "./images/earth.jpg";
+import jupiterTexture from "./images/jupiter.jpeg";
+import marsTexture from "./images/mars.jpeg";
+import mercuryTexture from "./images/mercury.jpeg";
+import neptuneTexture from "./images/neptune.jpeg";
+import saturnTexture from "./images/saturn.jpeg";
+import uranusTexture from "./images/uranus.jpg";
+import venusTexture from "./images/venus.jpeg";
 
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
+
+const sortedPlanetsWithSun = [
+  {
+    name: "Sun",
+    texture: sunTexture,
+    size: 5,
+    distance: 0,
+    rotationSpeed: 0.01,
+  },
+  {
+    name: "Mercury",
+    texture: mercuryTexture,
+    size: 0.5,
+    distance: 15,
+    rotationSpeed: 0.01,
+  },
+  {
+    name: "Venus",
+    texture: venusTexture,
+    size: 1,
+    distance: 10,
+    rotationSpeed: 0.01,
+  },
+  {
+    name: "Earth",
+    texture: earthTexture,
+    size: 1,
+    distance: 15,
+    rotationSpeed: 0.01,
+  },
+  {
+    name: "Mars",
+    texture: marsTexture,
+    size: 0.5,
+    distance: 20,
+    rotationSpeed: 0.01,
+  },
+  {
+    name: "Jupiter",
+    texture: jupiterTexture,
+    size: 2,
+    distance: 25,
+    rotationSpeed: 0.01,
+  },
+  {
+    name: "Saturn",
+    texture: saturnTexture,
+    size: 1.5,
+    distance: 30,
+    rotationSpeed: 0.01,
+  },
+  {
+    name: "Uranus",
+    texture: uranusTexture,
+    size: 1,
+    distance: 35,
+    rotationSpeed: 0.01,
+  },
+  {
+    name: "Neptune",
+    texture: neptuneTexture,
+    size: 1,
+    distance: 40,
+    rotationSpeed: 0.01,
+  },
+];
 
 const canvas = document.getElementById("canvasViewer")!;
 const scene = new THREE.Scene();
@@ -24,13 +98,17 @@ for (let i = 0; i < 10000; i++) {
   scene.add(starMesh);
 }
 
-const earthGeometry = new THREE.SphereGeometry(3, 64, 64);
-const earthMaterial = new THREE.MeshStandardMaterial({
-  map: new THREE.TextureLoader().load(earthTexture),
-});
 
-const mesh = new THREE.Mesh(earthGeometry, earthMaterial);
-scene.add(mesh);
+
+for (const planet of sortedPlanetsWithSun) {
+  const planetGeometry = new THREE.SphereGeometry(planet.size, 24, 24);
+  const planetMaterial = new THREE.MeshStandardMaterial({
+    map: new THREE.TextureLoader().load(planet.texture),
+  });
+  const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
+  planetMesh.position.set(planet.distance, 0, 0);
+  scene.add(planetMesh);
+}
 
 const aLight = new THREE.AmbientLight(0xffffff, 0.05);
 scene.add(aLight);
