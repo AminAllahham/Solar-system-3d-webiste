@@ -15,6 +15,8 @@ const sizes = {
   height: window.innerHeight,
 };
 
+
+
 const sortedPlanetsWithSun = [
   {
     name: "Sun",
